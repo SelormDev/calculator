@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url(../img/bg-img.avif);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 556px;
+  height: 652px;
+  border-radius: 21px;
+  background: #0e0e0e;
+  flex-shrink: 0;
+}
+
+.inner_container {
+  width: 485px;
+  height: 90%;
+  /* border: 2px solid #fff; */
+}
+
+.tag {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  color: #fff;
+}
+
+.tag p {
+  width: 257px;
+  height: 40px;
+  flex-shrink: 0;
+  color: #fff;
+  font-family: Inter;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.solar {
+  width: 138px;
+  height: 40px;
+  background: #d9d9d9;
+  flex-shrink: 0;
+}
+
+.screen {
+  /* width: 485px; */
+  height: 116px;
+  border-radius: 10px;
+  background: #d9d9d9;
+  margin: 20px 0;
+  padding: 10px 20px;
+  color: #000;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: end;
+}
+
+.calculation_section {
+  font-size: 35px;
+}
+
+.total_section {
+  font-size: 50px;
+}
+
+.btn_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 76px;
+  height: 61px;
+  border-radius: 10px;
+  font-size: 40px;
+}
+
+.btn.normal {
+  margin: 16px 16px 0 0;
+}
+
+.btn.grey {
+  background: #696969;
+  color: #d9d9d9;
+}
+
+.btn.white {
+  background: #fff;
+}
+
+.btn.yellow {
+  background: #e7ec0d;
+}
