@@ -71,11 +71,15 @@ body {
 }
 
 .calculation_section {
-  font-size: 35px;
+  font-size: 39px;
+  /* word-spacing: -10px; */
+  height: 42px;
 }
 
 .total_section {
-  font-size: 50px;
+  font-size: 60px;
+  /* word-spacing: -15px; */
+  height: 60px;
 }
 
 .btn_container {
@@ -90,6 +94,7 @@ body {
   height: 61px;
   border-radius: 10px;
   font-size: 40px;
+  cursor: pointer;
 }
 
 .btn.normal {
