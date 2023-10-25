@@ -43,39 +43,16 @@ const calculate = (operator, firstNumber, secondNumber) => {
   }
 };
 
-function updateDisplayValue() {
+function updateDisplayValue(e) {
   totalSection.textContent += this.textContent;
   displayValue = Number(totalSection.textContent);
 }
-
-for (let i = 0; i < numbersBtn.length; i++) {
-  numbersBtn[i].addEventListener("click", updateDisplayValue);
+function updateKeyDisplayValue(e) {
+  if (Number(e.key) || e.key === "0") {
+    totalSection.textContent += Number(e.key);
+    displayValue = Number(totalSection.textContent);
+  }
 }
-
-let operatorValue = true;
-operators.forEach((operator) => {
-  operator.addEventListener("click", () => {
-    switch (operator.textContent) {
-      case "+":
-      case "−":
-      case "×":
-      case "÷":
-        if (answer !== 0) {
-          firstNumber = answer;
-        } else if (calculationSection.textContent !== "") {
-          secondNumber = displayValue;
-          firstNumber = calculate(sign, firstNumber, secondNumber);
-        } else {
-          firstNumber = displayValue;
-        }
-
-        sign = operator.textContent;
-        calculationSection.textContent = `${firstNumber}${sign}`;
-        totalSection.textContent = "";
-        break;
-    }
-  });
-});
 
 function reset() {
   calculationSection.textContent = "";
@@ -84,12 +61,67 @@ function reset() {
   answer = 0;
 }
 
-equalBtn.addEventListener("click", () => {
+function equalise() {
   if (calculationSection.textContent) {
     answer = calculate(sign, firstNumber, displayValue);
     totalSection.textContent = answer;
     calculationSection.textContent = "";
   }
+}
+
+function operate() {
+  console.log(
+    `firstNumber:${firstNumber} answer:${answer} displayValue:${displayValue}`
+  );
+  if (calculate.textContent && totalSection.textContent) {
+    equalise();
+  } else if (answer !== 0) {
+    firstNumber = Number(totalSection.textContent);
+  } else if (calculationSection.textContent !== "") {
+    secondNumber = displayValue;
+    firstNumber = calculate(sign, firstNumber, secondNumber);
+  } else {
+    firstNumber = displayValue;
+  }
+}
+
+for (let i = 0; i < numbersBtn.length; i++) {
+  numbersBtn[i].addEventListener("click", updateDisplayValue);
+}
+document.addEventListener("keydown", updateKeyDisplayValue);
+
+operators.forEach((operator) => {
+  operator.addEventListener("click", () => {
+    switch (operator.textContent) {
+      case "+":
+      case "−":
+      case "×":
+      case "÷":
+        operate();
+        sign = operator.textContent;
+        calculationSection.textContent = `${firstNumber}${sign}`;
+        totalSection.textContent = "";
+        break;
+    }
+  });
 });
 
+document.addEventListener("keydown", (e) => {
+  switch (e.key) {
+    case "+":
+    case "-":
+    case "/":
+    case "*":
+      operate();
+      sign = e.key;
+      calculationSection.textContent = `${firstNumber}${sign}`;
+      totalSection.textContent = "";
+      break;
+    case "Enter":
+      equalise();
+      break;
+  }
+});
+
+equalBtn.addEventListener("click", equalise);
 clearBtn.addEventListener("click", reset);
