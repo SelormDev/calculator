@@ -26,7 +26,6 @@ body {
 .inner_container {
   width: 485px;
   height: 90%;
-  /* border: 2px solid #fff; */
 }
 
 .tag {
@@ -41,7 +40,6 @@ body {
   height: 40px;
   flex-shrink: 0;
   color: #fff;
-  /* font-family: Inter; */
   font-size: 35px;
   font-style: normal;
   font-weight: 400;
@@ -56,29 +54,36 @@ body {
 }
 
 .screen {
-  /* width: 485px; */
   height: 116px;
   border-radius: 10px;
   background: #d9d9d9;
   margin: 20px 0;
   padding: 10px 20px;
   color: #000;
-  /* font-family: Inter; */
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   text-align: end;
 }
 
+.link {
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+}
+
+.link:hover {
+  transform: scale(1.1);
+  color: #696969;
+}
+
 .calculation_section {
   font-size: 39px;
-  /* word-spacing: -10px; */
   height: 42px;
 }
 
 .total_section {
   font-size: 60px;
-  /* word-spacing: -15px; */
   height: 60px;
 }
 
