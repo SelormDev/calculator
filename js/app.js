@@ -31,7 +31,7 @@ function calculate(operator, a, b) {
   switch (operator) {
     case "+":
       return a + b;
-    case "-":
+    case "−":
       return a - b;
     case "×":
       return a * b;
@@ -81,8 +81,14 @@ document.addEventListener("keydown", (e) => {
   const key = e.key;
   if (/[0-9]/.test(key)) {
     updateDisplayValue(key);
-  } else if (["+", "-", "*", "/"].includes(key)) {
+  } else if (["+"].includes(key)) {
     operate.call({ textContent: key });
+  } else if (["-"].includes(key)) {
+    operate.call({ textContent: "−" });
+  } else if (["*"].includes(key)) {
+    operate.call({ textContent: "×" });
+  } else if (["/"].includes(key)) {
+    operate.call({ textContent: "÷" });
   } else if (key === "Enter") {
     equalise();
   } else if (key === "Backspace") {
