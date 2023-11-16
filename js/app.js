@@ -41,7 +41,7 @@ function calculate(operator, a, b) {
       return a * b;
     case "÷":
       if (b !== 0) {
-        return a / b;
+        return (a / b).toFixed(2);
       } else {
         return "Error";
       }
@@ -65,7 +65,7 @@ function reset() {
 
 function equalise() {
   if (operator && totalSection.textContent) {
-    const result = calculate(operator, firstNumber, displayValue).toFixed(2);
+    const result = calculate(operator, firstNumber, displayValue);
     totalSection.textContent = result;
     calculationSection.textContent = "";
     firstNumber = result;
