@@ -6,10 +6,13 @@ const clearBtn = document.querySelector(".clear_all");
 const equalBtn = document.querySelector(".equals");
 const calculationSection = document.querySelector(".calculation_section");
 const totalSection = document.querySelector(".total_section");
+const deleteBtn = document.querySelector(".delete");
 
 let displayValue = 0;
 let firstNumber = null;
 let operator = null;
+
+// -------------------- Functions ---------------------
 
 function updateDisplayValue(value) {
   totalSection.textContent += value;
@@ -46,6 +49,11 @@ function calculate(operator, a, b) {
   }
 }
 
+function deleteLast() {
+  totalSection.textContent = totalSection.textContent.slice(0, -1);
+  displayValue = parseFloat(totalSection.textContent);
+}
+
 function reset() {
   calculationSection.textContent = "";
   totalSection.textContent = "";
@@ -64,6 +72,8 @@ function equalise() {
   }
 }
 
+// ----------------------------- Event Listeners ------------------------
+
 numbersBtn.forEach((button) => {
   button.addEventListener("click", () =>
     updateDisplayValue(button.textContent)
@@ -75,6 +85,7 @@ operators.forEach((button) => {
 });
 
 equalBtn.addEventListener("click", equalise);
+deleteBtn.addEventListener("click", deleteLast);
 clearBtn.addEventListener("click", reset);
 
 document.addEventListener("keydown", (e) => {
@@ -92,6 +103,6 @@ document.addEventListener("keydown", (e) => {
   } else if (key === "Enter") {
     equalise();
   } else if (key === "Backspace") {
-    reset();
+    deleteLast();
   }
 });
