@@ -20,11 +20,12 @@ function updateDisplayValue(value) {
 }
 
 function operate() {
-  if (firstNumber === null) {
+  if (firstNumber === null || totalSection.textContent) {
     firstNumber = displayValue;
   } else if (operator) {
     firstNumber = calculate(operator, firstNumber, displayValue);
   }
+
   operator = this.textContent;
   calculationSection.textContent = `${firstNumber} ${operator}`;
   totalSection.textContent = "";
@@ -64,7 +65,7 @@ function reset() {
 
 function equalise() {
   if (operator && totalSection.textContent) {
-    const result = calculate(operator, firstNumber, displayValue);
+    const result = calculate(operator, firstNumber, displayValue).toFixed(2);
     totalSection.textContent = result;
     calculationSection.textContent = "";
     firstNumber = result;
@@ -102,6 +103,8 @@ document.addEventListener("keydown", (e) => {
     operate.call({ textContent: "÷" });
   } else if (key === "Enter") {
     equalise();
+  } else if (key === "Escape") {
+    reset();
   } else if (key === "Backspace") {
     deleteLast();
   }
