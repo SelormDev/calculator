@@ -1,34 +1,51 @@
 "use strict";
 
-const numbersBtn = document.querySelectorAll(".num");
-const operators = document.querySelectorAll(".operators");
-const clearBtn = document.querySelector(".clear_all");
-const equalBtn = document.querySelector(".equals");
-const calculationSection = document.querySelector(".calculation_section");
-const totalSection = document.querySelector(".total_section");
-const deleteBtn = document.querySelector(".delete");
+const elements = {
+  numbersBtn: document.querySelectorAll(".num"),
+  operators: document.querySelectorAll(".operators"),
+  clearBtn: document.querySelector(".clear_all"),
+  equalBtn: document.querySelector(".equals"),
+  calculationSection: document.querySelector(".calculation_section"),
+  totalSection: document.querySelector(".total_section"),
+  deleteBtn: document.querySelector(".delete"),
+};
 
-let displayValue = 0;
 let firstNumber = null;
+let secondNumber = null;
+let previousCalculation = null;
 let operator = null;
 
 // -------------------- Functions ---------------------
 
-function updateDisplayValue(value) {
-  totalSection.textContent += value;
-  displayValue = parseFloat(totalSection.textContent);
+function updatefirstNumber(value) {
+  elements.totalSection.textContent += value;
+  firstNumber = parseFloat(elements.totalSection.textContent);
 }
 
 function operate() {
-  if (firstNumber === null || totalSection.textContent) {
-    firstNumber = displayValue;
+  operator = this.textContent;
+
+  if (elements.calculationSection.textContent === "" && !previousCalculation) {
+    secondNumber = firstNumber;
+    console.log("assigning first number");
+  } else if (!!previousCalculation) {
+    secondNumber = calculate(operator, previousCalculation, firstNumber);
+    secondNumber = previousCalculation;
+    console.log("previouse calculation");
   } else if (operator) {
-    firstNumber = calculate(operator, firstNumber, displayValue);
+    secondNumber = calculate(operator, secondNumber, firstNumber);
+    console.log("operator");
+  } else if (
+    previousCalculation !== parseFloat(elements.totalSection.textContent)
+  ) {
+    secondNumber = parseFloat(elements.totalSection.textContent);
+    console.log("continuing new number");
+    console.log(parseFloat(elements.totalSection.textContent));
   }
 
-  operator = this.textContent;
-  calculationSection.textContent = `${firstNumber} ${operator}`;
-  totalSection.textContent = "";
+  elements.calculationSection.textContent = `${secondNumber} ${operator}`;
+  elements.totalSection.textContent = "";
+  console.log("globalOperator");
 }
 
 function calculate(operator, a, b) {
@@ -51,61 +68,68 @@ function calculate(operator, a, b) {
 }
 
 function deleteLast() {
-  totalSection.textContent = totalSection.textContent.slice(0, -1);
-  displayValue = parseFloat(totalSection.textContent);
+  elements.totalSection.textContent = totalSection.textContent.slice(0, -1);
+  firstNumber = parseFloat(totalSection.textContent);
+  secondNumber = parseFloat(totalSection.textContent);
+  previousCalculation = parseFloat(totalSection.textContent);
 }
 
 function reset() {
-  calculationSection.textContent = "";
-  totalSection.textContent = "";
-  displayValue = 0;
+  elements.calculationSection.textContent = "";
+  elements.totalSection.textContent = "";
   firstNumber = null;
+  secondNumber = null;
+  previousCalculation = null;
   operator = null;
 }
 
 function equalise() {
-  if (operator && totalSection.textContent) {
-    const result = calculate(operator, firstNumber, displayValue);
-    totalSection.textContent = result;
-    calculationSection.textContent = "";
-    firstNumber = result;
-    operator = null;
+  if (elements.totalSection.textContent !== "") {
+    const result = calculate(operator, secondNumber, firstNumber);
+    elements.totalSection.textContent = result;
+    elements.calculationSection.textContent = "";
+    previousCalculation = result;
+    console.log("Equalising");
   }
 }
 
 // ----------------------------- Event Listeners ------------------------
 
-numbersBtn.forEach((button) => {
-  button.addEventListener("click", () =>
-    updateDisplayValue(button.textContent)
-  );
+elements.numbersBtn.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (elements.totalSection.textContent.length > 14) {
+      return -1;
+    } else {
+      updatefirstNumber(button.textContent);
+    }
+  });
 });
 
-operators.forEach((button) => {
+elements.operators.forEach((button) => {
   button.addEventListener("click", operate);
 });
 
-equalBtn.addEventListener("click", equalise);
-deleteBtn.addEventListener("click", deleteLast);
-clearBtn.addEventListener("click", reset);
+elements.equalBtn.addEventListener("click", equalise);
+elements.deleteBtn.addEventListener("click", deleteLast);
+elements.clearBtn.addEventListener("click", reset);
 
-document.addEventListener("keydown", (e) => {
-  const key = e.key;
-  if (/[0-9]/.test(key)) {
-    updateDisplayValue(key);
-  } else if (["+"].includes(key)) {
-    operate.call({ textContent: key });
-  } else if (["-"].includes(key)) {
-    operate.call({ textContent: "−" });
-  } else if (["*"].includes(key)) {
-    operate.call({ textContent: "×" });
-  } else if (["/"].includes(key)) {
-    operate.call({ textContent: "÷" });
-  } else if (key === "Enter") {
-    equalise();
-  } else if (key === "Escape") {
-    reset();
-  } else if (key === "Backspace") {
-    deleteLast();
-  }
-});
+// document.addEventListener("keydown", (e) => {
+//   const key = e.key;
+//   if (/[0-9]/.test(key)) {
+//     updatefirstNumber(key);
+//   } else if (["+"].includes(key)) {
+//     operate.call({ textContent: key });
+//   } else if (["-"].includes(key)) {
+//     operate.call({ textContent: "−" });
+//   } else if (["*"].includes(key)) {
+//     operate.call({ textContent: "×" });
+//   } else if (["/"].includes(key)) {
+//     operate.call({ textContent: "÷" });
+//   } else if (key === "Enter") {
+//     equalise();
+//   } else if (key === "Escape") {
+//     reset();
+//   } else if (key === "Backspace") {
+//     deleteLast();
+//   }
+// });
