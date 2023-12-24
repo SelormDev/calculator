@@ -107,26 +107,22 @@ elements.deleteBtn.addEventListener("click", deleteLast);
 elements.clearBtn.addEventListener("click", reset);
 
 document.addEventListener("keydown", (e) => {
-  if (elements.totalSection.textContent.length > 14) {
-    return -1;
-  } else {
-    const key = e.key;
-    if (/[0-9]/.test(key)) {
-      updatefirstNumber(key);
-    } else if (["+"].includes(key)) {
-      operate.call({ textContent: key });
-    } else if (["-"].includes(key)) {
-      operate.call({ textContent: "−" });
-    } else if (["*"].includes(key)) {
-      operate.call({ textContent: "×" });
-    } else if (["/"].includes(key)) {
-      operate.call({ textContent: "÷" });
-    } else if (key === "Enter") {
-      equalise();
-    } else if (key === "Escape") {
-      reset();
-    } else if (key === "Backspace") {
-      deleteLast();
-    }
+  const key = e.key;
+  if (/[0-9]/.test(key)) {
+    updatefirstNumber(key);
+  } else if (["+"].includes(key)) {
+    operate.call({ textContent: key });
+  } else if (["-"].includes(key)) {
+    operate.call({ textContent: "−" });
+  } else if (["*"].includes(key)) {
+    operate.call({ textContent: "×" });
+  } else if (["/"].includes(key)) {
+    operate.call({ textContent: "÷" });
+  } else if (key === "Enter") {
+    equalise();
+  } else if (key === "Escape") {
+    reset();
+  } else if (key === "Backspace") {
+    deleteLast();
   }
 });
